@@ -45,7 +45,7 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
     if (isUsernameValid() && isPasswordValid()) {
       const objectData = { username, password };
       axios
-        .post(`${url}/login`, objectData)
+        .post(`${url}/login`, objectData, { withCredentials: true })
         .then((res) => {
           //UPDATE ACCESS TOKEN TO THE ACCESS TOKEN STATE
           dispatch(updateAccessToken(res.data));

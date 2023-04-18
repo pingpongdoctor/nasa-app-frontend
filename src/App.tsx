@@ -7,7 +7,9 @@ import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import axios from "axios";
 import { useEffect } from "react";
-import { updateUserProfile } from "./features/userProfileSlice";
+import userProfileSlice, {
+  updateUserProfile,
+} from "./features/userProfileSlice";
 import { updateAccessToken } from "./features/accessTokenSlice";
 import { updateLoginState } from "./features/loginSlice";
 const url = import.meta.env.VITE_APP_API_URL;
@@ -18,9 +20,13 @@ function App() {
 
   //GET THE ACCESS TOKEN STATE
   const accessTokenState = useAppSelector((state) => state.accessToken.value);
+  const loginState = useAppSelector((state) => state.login.value);
+  const userProfile = useAppSelector((state) => state.user.value);
   useEffect(() => {
     console.log(accessTokenState);
-  }, [accessTokenState]);
+    console.log(loginState);
+    console.log(userProfile);
+  }, [accessTokenState, loginState, userProfile]);
 
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
   const getUserProfile = function (accessToken: string): void {
@@ -50,11 +56,27 @@ function App() {
   };
 
   //FUNCTION TO GET NEW ACCESS TOKEN
+  const getNewAccessToken = function () {
+    axios
+      .get(`${url}/get-access-token`, { withCredentials: true })
+      .then((res) => {
+        dispatch(updateAccessToken(res.data));
+      })
+      .catch((e) => console.log(e));
+  };
 
-  //USEEFFECT TO GET USER PROFILE WHEN THE ACCESS TOKEN IS UPDATED
+  //USEEFFECT TO GET NEW ACCESS TOKEN WHEN PAGE IS LOADED
   useEffect(() => {
-    getUserProfile(accessTokenState);
+    getNewAccessToken();
+  }, []);
+
+  //USEEFFECT TO GET USER PROFILE WHEN ACCESS TOKEN IS UPDATED
+  useEffect(() => {
+    if (accessTokenState) {
+      getUserProfile(accessTokenState);
+    }
   }, [accessTokenState]);
+
   return (
     <BrowserRouter>
       <div className="App">
