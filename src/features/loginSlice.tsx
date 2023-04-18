@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 //DATA TYPE OF THE INITIAL LOGIN STATE
-interface initialStateType {
+interface InitialStateType {
   value: boolean;
 }
 //DEFINE THE INITIAL LOGIN STATE
-const initialState: initialStateType = { value: false };
+const initialState: InitialStateType = { value: false };
 //DEFINE THE LOGIN SLICE
 const loginSlice = createSlice({
   name: "login",
@@ -14,7 +14,7 @@ const loginSlice = createSlice({
   reducers: {
     //FUNCTION TO UPDATE THE LOGIN STATE
     updateLoginState<T>(
-      state: initialStateType,
+      state: InitialStateType,
       action: PayloadAction<boolean>
     ): void {
       state.value = action.payload;

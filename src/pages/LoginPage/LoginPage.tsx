@@ -2,9 +2,18 @@ import "./LoginPage.scss";
 import { Link } from "react-router-dom";
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
+import { useAppDispatch } from "../../customHooks/customHooks";
+import { updateAccessToken } from "../../features/accessTokenSlice";
 const url = import.meta.env.VITE_APP_API_URL;
 
-const LoginPage = () => {
+//DATA TYPE ANNOTATION FOR LOGIN PAGE PROPS
+interface LoginPageProps {
+  getUserProfile: Function;
+}
+
+const LoginPage = ({ getUserProfile }: LoginPageProps) => {
+  //DEFINE DISPATCH FUNCTION
+  const dispatch = useAppDispatch();
   //STATES FOR USERNAME AND PASSWORD
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -36,9 +45,12 @@ const LoginPage = () => {
     if (isUsernameValid() && isPasswordValid()) {
       const objectData = { username, password };
       axios
-        .post(`${url}/login`, objectData)
+        .post(`${url}/login`, objectData, { withCredentials: true })
         .then((res) => {
-          console.log(res.data);
+          //UPDATE ACCESS TOKEN TO THE ACCESS TOKEN STATE
+          dispatch(updateAccessToken(res.data));
+          //INVOKE THE FUNCTION TO GET USER PROFILE
+          getUserProfile(res.data);
         })
         .catch((e) => console.log(e));
     }
