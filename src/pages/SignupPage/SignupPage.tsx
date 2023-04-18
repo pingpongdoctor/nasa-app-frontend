@@ -35,9 +35,9 @@ const SignupPage = () => {
   const handleSignup = function (e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isUsernameValid() && isPasswordValid()) {
-      const updatedObj = { username, password };
+      const objectData = { username, password };
       axios
-        .post(`${url}/signup`, updatedObj)
+        .post(`${url}/signup`, objectData)
         .then((res) => alert(res.data))
         .catch((e) => alert(e.response.data));
     } else {
