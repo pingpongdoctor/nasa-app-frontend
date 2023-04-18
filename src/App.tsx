@@ -7,9 +7,7 @@ import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import axios from "axios";
 import { useEffect } from "react";
-import userProfileSlice, {
-  updateUserProfile,
-} from "./features/userProfileSlice";
+import { updateUserProfile } from "./features/userProfileSlice";
 import { updateAccessToken } from "./features/accessTokenSlice";
 import { updateLoginState } from "./features/loginSlice";
 const url = import.meta.env.VITE_APP_API_URL;
@@ -20,6 +18,7 @@ function App() {
 
   //GET THE ACCESS TOKEN STATE
   const accessTokenState = useAppSelector((state) => state.accessToken.value);
+  const isLogin = useAppSelector((state) => state.login.value);
 
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
   const getUserProfile = function (accessToken: string): void {
@@ -71,10 +70,24 @@ function App() {
     }
   }, [accessTokenState]);
 
+  //FUNCTION TO LOGOUT
+  const handleLogout = function (): void {
+    if (isLogin) {
+      axios
+        .delete(`${url}/logout`)
+        .then((res) => {
+          dispatch(updateLoginState(false));
+          dispatch(updateUserProfile(null));
+          dispatch(updateAccessToken(""));
+        })
+        .catch((e) => console.log(e));
+    }
+  };
+
   return (
     <BrowserRouter>
       <div className="App">
-        <HeaderComponent />
+        <HeaderComponent handleLogout={handleLogout} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route

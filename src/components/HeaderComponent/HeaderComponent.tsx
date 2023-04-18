@@ -2,7 +2,11 @@ import "./HeaderComponent.scss";
 import { useAppSelector } from "../../customHooks/customHooks";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const HeaderComponent = () => {
+interface HeaderComponentProps {
+  handleLogout: () => void;
+}
+
+const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
   //GET CURRENT PATH
   const currentPath = useLocation().pathname;
   //GET THE LOGIN STATE
@@ -20,7 +24,7 @@ const HeaderComponent = () => {
     return (
       <div>
         {!isLogin && <button onClick={handleNavigateLoginPage}>Login</button>}
-        {isLogin && <button>Logout</button>}
+        {isLogin && <button onClick={handleLogout}>Logout</button>}
         {!isLogin && <button onClick={handleNavigateSignupPage}>Signup</button>}
       </div>
     );
