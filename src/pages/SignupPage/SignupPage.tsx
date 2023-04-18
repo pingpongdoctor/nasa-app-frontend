@@ -1,11 +1,14 @@
 import "./SignupPage.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { setUseProxies } from "immer";
 import axios from "axios";
+import { useAppSelector } from "../../customHooks/customHooks";
+import { useEffect } from "react";
 const url = import.meta.env.VITE_APP_API_URL;
 
 const SignupPage = () => {
+  //GET LOGIN STATE
+  const isLogin = useAppSelector((state) => state.login.value);
   //STATES FOR USERNAME AND PASSWORD
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -44,7 +47,15 @@ const SignupPage = () => {
       alert("Please provide valid username and password");
     }
   };
-  console.log(username, password);
+
+  //USEEFFECT TO NAVIGATE BACK TO HOMEPAGE WHEN USER IS ALREADY AUTHENTICATED
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin]);
+
   return (
     <div>
       <form onSubmit={handleSignup}>
