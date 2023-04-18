@@ -2,14 +2,16 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import loginReducer from "../src/features/loginSlice";
+import loginReducer from "./features/loginSlice";
 import userReducer from "./features/userProfileSlice";
+import accessTokenReducer from "./features/accessTokenSlice";
 
 //DEFINE THE STORE
 const store = configureStore({
   reducer: {
     login: loginReducer,
     user: userReducer,
+    accessToken: accessTokenReducer,
   },
 });
 
