@@ -20,13 +20,6 @@ function App() {
 
   //GET THE ACCESS TOKEN STATE
   const accessTokenState = useAppSelector((state) => state.accessToken.value);
-  const loginState = useAppSelector((state) => state.login.value);
-  const userProfile = useAppSelector((state) => state.user.value);
-  useEffect(() => {
-    console.log(accessTokenState);
-    console.log(loginState);
-    console.log(userProfile);
-  }, [accessTokenState, loginState, userProfile]);
 
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
   const getUserProfile = function (accessToken: string): void {
@@ -42,6 +35,7 @@ function App() {
         .then((res) => {
           //NEW USER PROFILE RETURNED
           if (res.data && res.data._id) {
+            console.log(res.data);
             dispatch(updateUserProfile(res.data));
             dispatch(updateLoginState(true));
           }
