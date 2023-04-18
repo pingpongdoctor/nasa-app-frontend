@@ -3,7 +3,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 
 //ANNOTATE DATA TYPE FOR THE INITIAL USER PROFILE STATE
 interface InitialStateType {
-  value: { id: number; name: string } | null;
+  value: { _id: number; username: string } | null;
 }
 //DEFINE THE INITIAL STATE FOR THE USER PROFILE
 const initialState: InitialStateType = { value: null };
@@ -14,7 +14,7 @@ const userProfileSlice = createSlice({
   reducers: {
     updateUserProfile(
       state: InitialStateType,
-      action: PayloadAction<{ id: number; name: string } | null>
+      action: PayloadAction<{ _id: number; username: string } | null>
     ): void {
       state.value = action.payload;
     },
