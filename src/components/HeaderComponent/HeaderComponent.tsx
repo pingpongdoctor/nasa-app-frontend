@@ -12,12 +12,16 @@ const HeaderComponent = () => {
   const handleNavigateLoginPage = function () {
     navigate("/login");
   };
+  const handleNavigateSignupPage = function () {
+    navigate("/signup");
+  };
 
   if (currentPath !== "/login" && currentPath !== "/signup") {
     return (
       <div>
         {!isLogin && <button onClick={handleNavigateLoginPage}>Login</button>}
         {isLogin && <button>Logout</button>}
+        {!isLogin && <button onClick={handleNavigateSignupPage}>Signup</button>}
       </div>
     );
   } else {
