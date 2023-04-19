@@ -8,7 +8,6 @@ import SignupPage from "./pages/SignupPage/SignupPage";
 import axios from "axios";
 import { useEffect } from "react";
 import { updateUserProfile } from "./features/userProfileSlice";
-import { updateAccessToken } from "./features/accessTokenSlice";
 import { updateLoginState } from "./features/loginSlice";
 const url = import.meta.env.VITE_APP_API_URL;
 
@@ -17,58 +16,21 @@ function App() {
   const dispatch = useAppDispatch();
 
   //GET THE ACCESS TOKEN STATE
-  const accessTokenState = useAppSelector((state) => state.accessToken.value);
   const isLogin = useAppSelector((state) => state.login.value);
 
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
-  const getUserProfile = function (accessToken: string): void {
-    //IF ACCESS TOKEN EXIST
-    if (accessToken) {
-      axios
-        .get(`${url}/user-profile`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-          withCredentials: true,
-        })
-        .then((res) => {
-          //NEW USER PROFILE RETURNED
-          if (res.data && res.data._id) {
-            console.log(res.data);
-            dispatch(updateUserProfile(res.data));
-            dispatch(updateLoginState(true));
-          }
-          //NEW ACCESS TOKEN RETURNED
-          if (res.data && res.data._id === undefined) {
-            dispatch(updateAccessToken(res.data));
-            dispatch(updateLoginState(false));
-          }
-        })
-        .catch((e) => console.log(e));
-    }
-  };
-
-  //FUNCTION TO GET NEW ACCESS TOKEN
-  const getNewAccessToken = function () {
+  const getUserProfile = function (): void {
     axios
-      .get(`${url}/get-access-token`, { withCredentials: true })
+      .get(`${url}/user-profile`, {
+        withCredentials: true,
+      })
       .then((res) => {
-        dispatch(updateAccessToken(res.data));
+        //NEW USER PROFILE RETURNED
+        dispatch(updateUserProfile(res.data));
+        dispatch(updateLoginState(true));
       })
       .catch((e) => console.log(e));
   };
-
-  //USEEFFECT TO GET NEW ACCESS TOKEN WHEN PAGE IS LOADED
-  useEffect(() => {
-    getNewAccessToken();
-  }, []);
-
-  //USEEFFECT TO GET USER PROFILE WHEN ACCESS TOKEN IS UPDATED
-  useEffect(() => {
-    if (accessTokenState) {
-      getUserProfile(accessTokenState);
-    }
-  }, [accessTokenState]);
 
   //FUNCTION TO LOGOUT
   const handleLogout = function (): void {
@@ -78,7 +40,6 @@ function App() {
         .then((res) => {
           dispatch(updateLoginState(false));
           dispatch(updateUserProfile(null));
-          dispatch(updateAccessToken(""));
         })
         .catch((e) => console.log(e));
     }

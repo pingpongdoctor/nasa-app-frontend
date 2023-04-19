@@ -3,17 +3,18 @@ import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../customHooks/customHooks";
-import { updateAccessToken } from "../../features/accessTokenSlice";
+import { is } from "immer/dist/internal";
 const url = import.meta.env.VITE_APP_API_URL;
 
 //DATA TYPE ANNOTATION FOR LOGIN PAGE PROPS
 interface LoginPageProps {
-  getUserProfile: (accessToken: string) => void;
+  getUserProfile: () => void;
 }
 
 const LoginPage = ({ getUserProfile }: LoginPageProps) => {
   //GET LOGIN STATE
   const isLogin = useAppSelector((state) => state.login.value);
+  const userProfile = useAppSelector((state) => state.user.value);
   //DEFINE DISPATCH FUNCTION
   const dispatch = useAppDispatch();
   //STATES FOR USERNAME AND PASSWORD
@@ -50,10 +51,8 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
       axios
         .post(`${url}/login`, objectData, { withCredentials: true })
         .then((res) => {
-          //UPDATE ACCESS TOKEN TO THE ACCESS TOKEN STATE
-          dispatch(updateAccessToken(res.data));
-          //INVOKE THE FUNCTION TO GET USER PROFILE
-          getUserProfile(res.data);
+          //GET NEW TOKENS AND THEN GET USER PROFILE
+          getUserProfile();
         })
         .catch((e) => console.log(e));
     }
@@ -68,24 +67,18 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
   }, [isLogin]);
 
   return (
-    <>
-      <div>
-        <form onSubmit={handleLogin}>
-          <p>Login To See The NASA Picture</p>
-          <label htmlFor="username">Username</label>
-          <input onChange={handleUpdateUsername} type="text" id="username" />
-          <label htmlFor="password">Password</label>
-          <input
-            onChange={handleUpdatePassword}
-            type="password"
-            id="password"
-          />
-          <button>Login</button>
-        </form>
-        <Link to={"/"}>HomePage</Link>
-        <Link to={"/signup"}>SignupPage</Link>
-      </div>
-    </>
+    <div>
+      <form onSubmit={handleLogin}>
+        <p>Login To See The NASA Picture</p>
+        <label htmlFor="username">Username</label>
+        <input onChange={handleUpdateUsername} type="text" id="username" />
+        <label htmlFor="password">Password</label>
+        <input onChange={handleUpdatePassword} type="password" id="password" />
+        <button>Login</button>
+      </form>
+      <Link to={"/"}>HomePage</Link>
+      <Link to={"/signup"}>SignupPage</Link>
+    </div>
   );
 };
 
