@@ -1,0 +1,18 @@
+@use "../../styles//mixins" as *;
+@use "../../styles/variables" as *;
+
+.loading-component {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #26282f;
+  top: 0;
+  left: 0;
+}
+
+.loading-component--display-none {
+  display: none;
+}

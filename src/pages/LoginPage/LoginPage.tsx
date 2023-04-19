@@ -14,9 +14,6 @@ interface LoginPageProps {
 const LoginPage = ({ getUserProfile }: LoginPageProps) => {
   //GET LOGIN STATE
   const isLogin = useAppSelector((state) => state.login.value);
-  const userProfile = useAppSelector((state) => state.user.value);
-  //DEFINE DISPATCH FUNCTION
-  const dispatch = useAppDispatch();
   //STATES FOR USERNAME AND PASSWORD
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
