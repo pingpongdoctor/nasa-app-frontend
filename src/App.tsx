@@ -7,7 +7,9 @@ import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import axios from "axios";
 import { useEffect } from "react";
-import { updateUserProfile } from "./features/userProfileSlice";
+import userProfileSlice, {
+  updateUserProfile,
+} from "./features/userProfileSlice";
 import { updateLoginState } from "./features/loginSlice";
 const url = import.meta.env.VITE_APP_API_URL;
 
@@ -17,7 +19,7 @@ function App() {
 
   //GET THE ACCESS TOKEN STATE
   const isLogin = useAppSelector((state) => state.login.value);
-
+  const userProfile = useAppSelector((state) => state.user.value);
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
   const getUserProfile = function (): void {
     axios
@@ -29,21 +31,32 @@ function App() {
         dispatch(updateUserProfile(res.data));
         dispatch(updateLoginState(true));
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        dispatch(updateUserProfile(null));
+        dispatch(updateLoginState(false));
+      });
   };
 
   //FUNCTION TO LOGOUT
   const handleLogout = function (): void {
     if (isLogin) {
       axios
-        .delete(`${url}/logout`)
+        .delete(`${url}/logout`, { withCredentials: true })
         .then((res) => {
           dispatch(updateLoginState(false));
           dispatch(updateUserProfile(null));
         })
-        .catch((e) => console.log(e));
+        .catch((e) => {
+          console.log(e);
+        });
     }
   };
+
+  //USEEFFECT TO GET USER PROFILE WHEN PAGE IS LOADED
+  useEffect(() => {
+    getUserProfile();
+  }, []);
 
   return (
     <BrowserRouter>

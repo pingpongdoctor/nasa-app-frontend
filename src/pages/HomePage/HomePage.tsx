@@ -27,7 +27,7 @@ const HomePage = () => {
         setImgData(response.data);
       })
       .catch((e) => {
-        throw new Error(e);
+        console.log(e);
       });
   };
   //USE EFFECT TO GET THE IMAGE DATA FROM NASA API
