@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-//DATA TYPE OF THE INITIAL LOGIN STATE
+//DATA TYPE OF THE INITIAL AUTHENTICATING STATE
 interface InitialStateType {
   value: boolean;
 }
-//DEFINE THE INITIAL LOGIN STATE
+//DEFINE THE INITIAL AUTHENTICATING STATE
 const initialState: InitialStateType = { value: false };
-//DEFINE THE LOGIN SLICE
-const loginSlice = createSlice({
-  name: "login",
+//DEFINE THE AUTHENTICATING SLICE
+const authenticatingSlice = createSlice({
+  name: "authenticating",
   initialState,
   reducers: {
-    //FUNCTION TO UPDATE THE LOGIN STATE
-    updateLoginState<T>(
+    //FUNCTION TO UPDATE THE AUTHENTICATING STATE
+    updateAuthenticatingState<T>(
       state: InitialStateType,
       action: PayloadAction<boolean>
     ): void {
@@ -22,5 +22,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { updateLoginState } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { updateAuthenticatingState } = authenticatingSlice.actions;
+export default authenticatingSlice.reducer;

@@ -4,12 +4,14 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import loginReducer from "./features/loginSlice";
 import userReducer from "./features/userProfileSlice";
+import authenticatingReducer from "./features/authenticatingSlice";
 
 //DEFINE THE STORE
 const store = configureStore({
   reducer: {
     login: loginReducer,
     user: userReducer,
+    authenticating: authenticatingReducer,
   },
 });
 
