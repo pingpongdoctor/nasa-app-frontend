@@ -2,8 +2,7 @@ import "./LoginPage.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { useAppDispatch, useAppSelector } from "../../customHooks/customHooks";
-import { is } from "immer/dist/internal";
+import { useAppSelector } from "../../customHooks/customHooks";
 const url = import.meta.env.VITE_APP_API_URL;
 
 //DATA TYPE ANNOTATION FOR LOGIN PAGE PROPS

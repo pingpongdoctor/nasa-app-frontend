@@ -6,7 +6,7 @@ interface InitialStateType {
   value: boolean;
 }
 //DEFINE THE INITIAL AUTHENTICATING STATE
-const initialState: InitialStateType = { value: false };
+const initialState: InitialStateType = { value: true };
 //DEFINE THE AUTHENTICATING SLICE
 const authenticatingSlice = createSlice({
   name: "authenticating",
