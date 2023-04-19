@@ -56,6 +56,10 @@ function App() {
     getUserProfile();
   }, []);
 
+  useEffect(() => {
+    console.log(userProfile);
+    console.log(isLogin);
+  }, [userProfile, isLogin]);
   return (
     <BrowserRouter>
       <div className="App">
