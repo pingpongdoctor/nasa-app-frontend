@@ -7,9 +7,7 @@ import HeaderComponent from "./components/HeaderComponent/HeaderComponent";
 import SignupPage from "./pages/SignupPage/SignupPage";
 import axios from "axios";
 import { useEffect } from "react";
-import userProfileSlice, {
-  updateUserProfile,
-} from "./features/userProfileSlice";
+import { updateUserProfile } from "./features/userProfileSlice";
 import { updateLoginState } from "./features/loginSlice";
 const url = import.meta.env.VITE_APP_API_URL;
 
