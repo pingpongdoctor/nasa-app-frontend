@@ -6,6 +6,7 @@ import { useAppSelector } from "../../customHooks/customHooks";
 import { useEffect } from "react";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 const url = import.meta.env.VITE_APP_API_URL;
 
 const SignupPage = () => {
@@ -58,8 +59,17 @@ const SignupPage = () => {
     }
   }, [isLogin]);
 
+  //USEEFFECT TO HANDLE LOADING COMPONENT STATE
+  const [loadingDisplayNone, setLoadingDisplayNone] = useState<string>("");
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingDisplayNone("loading-component--display-none");
+    }, 700);
+  });
+
   return (
     <div className="signup-component">
+      <LoadingComponent loadingComponentDisappear={loadingDisplayNone} />
       <h1>Signup New Account</h1>
       <form className="signup-component__form" onSubmit={handleSignup}>
         <div className="signup-component__wrapper">

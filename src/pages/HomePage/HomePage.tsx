@@ -97,11 +97,6 @@ const HomePage = () => {
         />
         {imgData && (
           <div>
-            {/* SHOW USER PROFILE */}
-            <div>
-              <p>{userProfile._id}</p>
-              <p>{userProfile.username}</p>
-            </div>
             {/* SHOW NASA DAILY IMAGE AND ITS EXPLANATION */}
             <div>
               <h1>Title:{imgData.title} </h1>
@@ -121,7 +116,7 @@ const HomePage = () => {
   } else {
     return (
       <>
-        <h1>Please login to see the NASA picture</h1>
+        <h1>Please login to see NASA picture</h1>
       </>
     );
   }

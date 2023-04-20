@@ -3,7 +3,7 @@ import { ClassicSpinner } from "react-spinners-kit";
 
 interface LoadingComponentProps {
   loadingComponentDisappear?: string;
-  loadingContent: string;
+  loadingContent?: string;
 }
 
 const LoadingComponent = ({

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useAppSelector } from "../../customHooks/customHooks";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 const url = import.meta.env.VITE_APP_API_URL;
 
 //DATA TYPE ANNOTATION FOR LOGIN PAGE PROPS
@@ -64,8 +65,17 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
     }
   }, [isLogin]);
 
+  //USEEFFECT TO HANDLE LOADING COMPONENT STATE
+  const [loadingDisplayNone, setLoadingDisplayNone] = useState<string>("");
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingDisplayNone("loading-component--display-none");
+    }, 700);
+  });
+
   return (
     <div className="login-component">
+      <LoadingComponent loadingComponentDisappear={loadingDisplayNone} />
       <h1>Login Now</h1>
       <form className="login-component__form" onSubmit={handleLogin}>
         <div className="login-component__wrapper">
