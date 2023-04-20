@@ -38,7 +38,7 @@ const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
           <div className="header-component__container">
             {userProfile && userProfile.username && (
               <p className="header-component__username">
-                {userProfile.username}
+                User: {userProfile.username}
               </p>
             )}
             {!isLogin && (
