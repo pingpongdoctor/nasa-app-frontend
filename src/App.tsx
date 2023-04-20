@@ -9,6 +9,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { updateUserProfile } from "./features/userProfileSlice";
 import { updateLoginState } from "./features/loginSlice";
+import { updateAuthenticatingState } from "./features/authenticatingSlice";
 const url = import.meta.env.VITE_APP_API_URL;
 
 function App() {
@@ -28,11 +29,17 @@ function App() {
         //NEW USER PROFILE RETURNED
         dispatch(updateUserProfile(res.data));
         dispatch(updateLoginState(true));
+        setTimeout(() => {
+          dispatch(updateAuthenticatingState(false));
+        }, 700);
       })
       .catch((e) => {
         console.log(e);
         dispatch(updateUserProfile(null));
         dispatch(updateLoginState(false));
+        setTimeout(() => {
+          dispatch(updateAuthenticatingState(false));
+        }, 700);
       });
   };
 

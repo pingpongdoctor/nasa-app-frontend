@@ -2,8 +2,9 @@ import "./LoginPage.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { useAppDispatch, useAppSelector } from "../../customHooks/customHooks";
-import { is } from "immer/dist/internal";
+import { useAppSelector } from "../../customHooks/customHooks";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import InputComponent from "../../components/InputComponent/InputComponent";
 const url = import.meta.env.VITE_APP_API_URL;
 
 //DATA TYPE ANNOTATION FOR LOGIN PAGE PROPS
@@ -14,9 +15,6 @@ interface LoginPageProps {
 const LoginPage = ({ getUserProfile }: LoginPageProps) => {
   //GET LOGIN STATE
   const isLogin = useAppSelector((state) => state.login.value);
-  const userProfile = useAppSelector((state) => state.user.value);
-  //DEFINE DISPATCH FUNCTION
-  const dispatch = useAppDispatch();
   //STATES FOR USERNAME AND PASSWORD
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -67,17 +65,48 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
   }, [isLogin]);
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <p>Login To See The NASA Picture</p>
-        <label htmlFor="username">Username</label>
-        <input onChange={handleUpdateUsername} type="text" id="username" />
-        <label htmlFor="password">Password</label>
-        <input onChange={handleUpdatePassword} type="password" id="password" />
-        <button>Login</button>
+    <div className="login-component">
+      <h1>Login Now</h1>
+      <form className="login-component__form" onSubmit={handleLogin}>
+        <div className="login-component__wrapper">
+          <label className="login-component__label" htmlFor="username">
+            Username
+          </label>
+          <InputComponent
+            InputPlaceHolder="Your Username"
+            InputId="username"
+            InputOnChangeFunction={handleUpdateUsername}
+            InputType="text"
+            InputClassName="input-component"
+          />
+        </div>
+
+        <div className="login-component__wrapper">
+          <label className="login-component__label" htmlFor="password">
+            Password
+          </label>
+          <InputComponent
+            InputPlaceHolder="Your Password"
+            InputId="password"
+            InputOnChangeFunction={handleUpdatePassword}
+            InputType="text"
+            InputClassName="input-component"
+          />
+        </div>
+
+        <ButtonComponent
+          buttonClassName="button-component"
+          buttonContent="Login"
+        />
+        <div className="login-component__links">
+          <Link className="login-component__link" to={"/"}>
+            Home
+          </Link>
+          <Link className="login-component__link" to={"/signup"}>
+            Signup
+          </Link>
+        </div>
       </form>
-      <Link to={"/"}>HomePage</Link>
-      <Link to={"/signup"}>SignupPage</Link>
     </div>
   );
 };
