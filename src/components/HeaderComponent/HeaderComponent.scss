@@ -15,10 +15,13 @@
     align-items: center;
     gap: 1rem;
     border-bottom-right-radius: 5px;
+    @include desktop {
+      max-width: 1216px;
+      margin: 0 auto;
+    }
   }
 
   &__username {
     margin: 0;
-    margin-right: auto;
   }
 }

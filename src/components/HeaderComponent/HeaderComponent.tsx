@@ -45,7 +45,7 @@ const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
               <ButtonComponent
                 buttonContent="Login"
                 buttonOnClickFunction={handleNavigateLoginPage}
-                buttonClassName="button-component button-component--header"
+                buttonClassName="button-component button-component--header button-component--header-margin-left"
               />
             )}
             {!isLogin && (
@@ -59,7 +59,7 @@ const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
               <ButtonComponent
                 buttonContent="Logout"
                 buttonOnClickFunction={handleLogoutFunction}
-                buttonClassName="button-component button-component--header"
+                buttonClassName="button-component button-component--header button-component--header-margin-left"
               />
             )}
           </div>

@@ -6,8 +6,15 @@
   @include tablet {
     margin: 2rem;
   }
-}
 
-.home-page__img {
-  width: 100%;
+  &__container {
+    @include desktop {
+      max-width: 1216px;
+      margin: 0 auto;
+    }
+  }
+
+  &__img {
+    width: 100%;
+  }
 }
