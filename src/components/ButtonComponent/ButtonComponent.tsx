@@ -4,6 +4,7 @@ interface ButtonComponentProps {
   buttonContent: string;
   buttonOnClickFunction?: () => void;
   buttonClassName?: string;
+  buttonType?: string;
 }
 
 const ButtonComponent = ({

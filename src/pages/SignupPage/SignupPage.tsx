@@ -6,6 +6,7 @@ import { useAppSelector } from "../../customHooks/customHooks";
 import { useEffect } from "react";
 import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
 import InputComponent from "../../components/InputComponent/InputComponent";
+import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
 const url = import.meta.env.VITE_APP_API_URL;
 
 const SignupPage = () => {
@@ -14,6 +15,9 @@ const SignupPage = () => {
   //STATES FOR USERNAME AND PASSWORD
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  //STATE FOR THE INPUT ERROR
+  const [usernameError, setUsernameError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
   //FUNCTIONS TO VALIDATE USERNAME AND PASSWORD
   const isUsernameValid = function (): boolean {
     if (username) {
@@ -30,36 +34,57 @@ const SignupPage = () => {
   };
   //FUNCTION TO UPDATE THE USERNAME AND PASSWORD
   const handleUpdateUsername = function (e: ChangeEvent<HTMLInputElement>) {
+    setUsernameError("");
     setUsername(e.target.value);
   };
 
   const handleUpdatePassword = function (e: ChangeEvent<HTMLInputElement>) {
+    setPasswordError("");
     setPassword(e.target.value);
   };
   //FUNCTION TO SIGNUP
+  const navigate = useNavigate();
   const handleSignup = function (e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isUsernameValid() && isPasswordValid()) {
       const objectData = { username, password };
+      setUsernameError("");
+      setPasswordError("");
+
       axios
         .post(`${url}/signup`, objectData)
-        .then((res) => alert(res.data))
+        .then((res) => {
+          alert("New account is created. Let's login!");
+          setTimeout(() => {
+            navigate("/login");
+          }, 700);
+        })
         .catch((e) => alert(e.response.data));
     } else {
-      alert("Please provide valid username and password");
+      alert("Please provide both username and password");
+      setUsernameError("input-component--error");
+      setPasswordError("input-component--error");
     }
   };
 
   //USEEFFECT TO NAVIGATE BACK TO HOMEPAGE WHEN USER IS ALREADY AUTHENTICATED
-  const navigate = useNavigate();
   useEffect(() => {
     if (isLogin) {
       navigate("/");
     }
   }, [isLogin]);
 
+  //USEEFFECT TO HANDLE LOADING COMPONENT STATE
+  const [loadingDisplayNone, setLoadingDisplayNone] = useState<string>("");
+  useEffect(() => {
+    setTimeout(() => {
+      setLoadingDisplayNone("loading-component--display-none");
+    }, 700);
+  });
+
   return (
     <div className="signup-component">
+      <LoadingComponent loadingComponentDisappear={loadingDisplayNone} />
       <h1>Signup New Account</h1>
       <form className="signup-component__form" onSubmit={handleSignup}>
         <div className="signup-component__wrapper">
@@ -71,7 +96,7 @@ const SignupPage = () => {
             InputType="text"
             InputId="username"
             InputOnChangeFunction={handleUpdateUsername}
-            InputClassName="input-component"
+            InputClassName={`input-component ${usernameError}`}
           />
         </div>
 
@@ -84,7 +109,7 @@ const SignupPage = () => {
             InputType="text"
             InputId="password"
             InputOnChangeFunction={handleUpdatePassword}
-            InputClassName="input-component"
+            InputClassName={`input-component ${passwordError}`}
           />
         </div>
         <ButtonComponent
