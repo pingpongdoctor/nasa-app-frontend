@@ -5,6 +5,10 @@
   padding: 1rem;
   background-color: rgb(246, 246, 184);
 
+  @include tablet {
+    padding: 1.5rem 2rem;
+  }
+
   &__container {
     display: flex;
     justify-content: flex-start;

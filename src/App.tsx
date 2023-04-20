@@ -18,7 +18,6 @@ function App() {
 
   //GET THE ACCESS TOKEN STATE
   const isLogin = useAppSelector((state) => state.login.value);
-  const userProfile = useAppSelector((state) => state.user.value);
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
   const getUserProfile = function (): void {
     axios

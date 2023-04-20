@@ -36,7 +36,11 @@ const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
       <div className="header-component">
         {isAuthenticate === false && (
           <div className="header-component__container">
-            <p className="header-component__username">Simon Tran</p>
+            {userProfile && userProfile.username && (
+              <p className="header-component__username">
+                {userProfile.username}
+              </p>
+            )}
             {!isLogin && (
               <ButtonComponent
                 buttonContent="Login"

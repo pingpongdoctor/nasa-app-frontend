@@ -8,6 +8,7 @@
   border-radius: 5px;
   border: 1px solid rgba(5, 5, 5, 0.069);
   transition: transform 0.5s;
+  cursor: pointer;
   &:hover {
     box-shadow: 2px 0px 15px -8px $button-color;
     background-color: $button-color-hover;

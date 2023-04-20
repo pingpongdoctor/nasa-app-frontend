@@ -1,3 +1,13 @@
-.nasa-data__img {
+@use "../../styles/mixins" as *;
+@use "../../styles/variables" as *;
+
+.home-page {
+  margin: 1rem;
+  @include tablet {
+    margin: 2rem;
+  }
+}
+
+.home-page__img {
   width: 100%;
 }

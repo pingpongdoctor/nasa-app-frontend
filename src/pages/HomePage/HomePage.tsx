@@ -8,7 +8,6 @@ const NASA_API_URL = import.meta.env.VITE_APP_NASA_URL;
 const NASA_API_KEY = import.meta.env.VITE_APP_NASA_API_KEY;
 
 const HomePage = () => {
-  const navigate = useNavigate();
   //GET AUTHENTICATING STATE
   const isAuthenticating = useAppSelector(
     (state) => state.authenticating.value
@@ -20,10 +19,11 @@ const HomePage = () => {
 
   //DATA TYPE FOR THE IMAGE DATA
   interface ImgData {
+    [index: string]: string;
     title: string;
-    hdurl: string;
     explanation: string;
     date: string;
+    url: string;
   }
 
   //STATE FOR THE IMAGE DATA
@@ -52,37 +52,14 @@ const HomePage = () => {
     handleFetchData();
   }, []);
 
-  //USEEFFECT TO HANDLE THE ISIMAGELOADED STATE
-  const nasaImage = useRef(null);
-  useEffect(() => {
-    if (
-      isAuthenticating === false &&
-      isLogin &&
-      userProfile &&
-      imgData &&
-      nasaImage
-    ) {
-      const currentImage = nasaImage.current as unknown as HTMLImageElement;
-      currentImage.addEventListener("load", () => {
-        setIsImageLoaded(true);
-      });
-    }
-  }, [isLogin, userProfile, imgData, nasaImage]);
-
   //USEEFFECT TO HANDLE LOADING DISAPPEAR STATE
   useEffect(() => {
-    if (
-      isAuthenticating === false &&
-      isLogin &&
-      userProfile &&
-      imgData &&
-      isImageLoaded
-    ) {
+    if (isAuthenticating === false && isLogin && userProfile && imgData) {
       setTimeout(() => {
         setLoadingDisappear("loading-component--display-none");
       }, 700);
     }
-  });
+  }, [isAuthenticating, isLogin, userProfile, imgData, isImageLoaded]);
 
   if (isAuthenticating === true) {
     return <LoadingComponent loadingContent="Authenticating" />;
@@ -90,28 +67,29 @@ const HomePage = () => {
 
   if (isLogin && userProfile) {
     return (
-      <>
-        <LoadingComponent
-          loadingContent="Loading"
-          loadingComponentDisappear={loadingDisappear}
-        />
-        {imgData && (
-          <div>
-            {/* SHOW NASA DAILY IMAGE AND ITS EXPLANATION */}
+      <div className="home-page">
+        <div className="home-page__container">
+          <LoadingComponent
+            loadingContent="Loading"
+            loadingComponentDisappear={loadingDisappear}
+          />
+          {imgData && (
             <div>
-              <h1>Title:{imgData.title} </h1>
-              <p>Date: {new Date(imgData.date).toDateString()}</p>
-              <img
-                ref={nasaImage}
-                className="nasa-data__img"
-                src={imgData.hdurl}
-                alt="nasa-picture"
-              />
-              <p>{imgData.explanation}</p>
+              {/* SHOW NASA DAILY IMAGE AND ITS EXPLANATION */}
+              <div>
+                <h1>{imgData.title} </h1>
+                <p>Date: {new Date(imgData.date).toDateString()}</p>
+                <img
+                  className="home-page__img"
+                  src={imgData.url}
+                  alt="nasa-picture"
+                />
+                <p>{imgData.explanation}</p>
+              </div>
             </div>
-          </div>
-        )}
-      </>
+          )}
+        </div>
+      </div>
     );
   } else {
     return (

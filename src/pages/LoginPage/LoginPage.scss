@@ -63,4 +63,14 @@
     border-bottom: 2px solid black;
     padding-bottom: 0;
   }
+
+  .login-component__google-link {
+    padding-bottom: 0;
+    color: rgb(224, 74, 74);
+    text-align: center;
+  }
+  .login-component__google-link:hover {
+    border: none;
+    color: rgb(232, 51, 51);
+  }
 }
