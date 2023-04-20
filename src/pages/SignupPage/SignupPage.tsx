@@ -4,6 +4,8 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import { useAppSelector } from "../../customHooks/customHooks";
 import { useEffect } from "react";
+import ButtonComponent from "../../components/ButtonComponent/ButtonComponent";
+import InputComponent from "../../components/InputComponent/InputComponent";
 const url = import.meta.env.VITE_APP_API_URL;
 
 const SignupPage = () => {
@@ -57,17 +59,47 @@ const SignupPage = () => {
   }, [isLogin]);
 
   return (
-    <div>
-      <form onSubmit={handleSignup}>
-        <p>Signup New Account</p>
-        <label htmlFor="username">Username</label>
-        <input onChange={handleUpdateUsername} type="text" id="username" />
-        <label htmlFor="password">Password</label>
-        <input onChange={handleUpdatePassword} type="password" id="password" />
-        <button>Signup</button>
+    <div className="signup-component">
+      <h1>Signup New Account</h1>
+      <form className="signup-component__form" onSubmit={handleSignup}>
+        <div className="signup-component__wrapper">
+          <label className="signup-component__label" htmlFor="username">
+            Username
+          </label>
+          <InputComponent
+            InputPlaceHolder="Your Username"
+            InputType="text"
+            InputId="username"
+            InputOnChangeFunction={handleUpdateUsername}
+            InputClassName="input-component"
+          />
+        </div>
+
+        <div className="signup-component__wrapper">
+          <label className="signup-component__label" htmlFor="password">
+            Password
+          </label>
+          <InputComponent
+            InputPlaceHolder="Your Password"
+            InputType="text"
+            InputId="password"
+            InputOnChangeFunction={handleUpdatePassword}
+            InputClassName="input-component"
+          />
+        </div>
+        <ButtonComponent
+          buttonContent="Signup"
+          buttonClassName="button-component"
+        />
+        <div className=" signup-component__links">
+          <Link className="signup-component__link" to={"/"}>
+            Home
+          </Link>
+          <Link className="signup-component__link" to={"/login"}>
+            Login
+          </Link>
+        </div>
       </form>
-      <Link to={"/"}>HomePage</Link>
-      <Link to={"/login"}>LoginPage</Link>
     </div>
   );
 };

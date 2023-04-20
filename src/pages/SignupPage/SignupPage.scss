@@ -1,0 +1,66 @@
+@use "../../styles/mixins" as *;
+@use "../../styles/variables" as *;
+
+.signup-component {
+  background-color: ivory;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  @include tablet {
+    flex-direction: row;
+    gap: 4rem;
+  }
+  @include desktop {
+    gap: 6rem;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 350px;
+    gap: 1rem;
+    background-color: #6da9e4;
+    box-shadow: 2px 0px 15px -8px #000000;
+    @include desktop {
+      width: 450px;
+      gap: 1.5rem;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  &__links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  &__link:link,
+  &__link:hover,
+  &__link:visited,
+  &__link:active {
+    text-decoration: none;
+    padding-bottom: 2px;
+    color: $text-color;
+    font-weight: 600;
+  }
+
+  &__link:hover {
+    border-bottom: 2px solid black;
+    padding-bottom: 0;
+  }
+}
