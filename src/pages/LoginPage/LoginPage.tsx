@@ -44,7 +44,7 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
     setPassword(e.target.value);
   };
 
-  //FUNCTION TO LOGIN
+  //FUNCTION TO LOG IN
   const navigate = useNavigate();
   const handleLogin = function (e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -79,7 +79,7 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
   return (
     <div className="login-component">
       <LoadingComponent loadingComponentDisappear={loadingDisplayNone} />
-      <h1>Login Now</h1>
+      <h1>Log in Now</h1>
       <form className="login-component__form" onSubmit={handleLogin}>
         <div className="login-component__wrapper">
           <label className="login-component__label" htmlFor="username">
@@ -109,20 +109,20 @@ const LoginPage = ({ getUserProfile }: LoginPageProps) => {
 
         <ButtonComponent
           buttonClassName="button-component"
-          buttonContent="Login"
+          buttonContent="Log in"
         />
         <Link
           className="login-component__link login-component__google-link"
           to={`${url}/auth/google`}
         >
-          Login with Google Account
+          Log in with Google Account
         </Link>
         <div className="login-component__links">
           <Link className="login-component__link" to={"/"}>
             Home
           </Link>
           <Link className="login-component__link" to={"/signup"}>
-            Signup
+            Sign up
           </Link>
         </div>
       </form>

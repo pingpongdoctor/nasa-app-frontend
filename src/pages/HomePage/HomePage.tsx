@@ -94,7 +94,7 @@ const HomePage = () => {
   } else {
     return (
       <>
-        <h1>Please login to see NASA picture</h1>
+        <h1>Please log in to see NASA picture</h1>
       </>
     );
   }

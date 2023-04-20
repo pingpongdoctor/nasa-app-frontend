@@ -22,7 +22,7 @@ const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
   const handleNavigateSignupPage = function () {
     navigate("/signup");
   };
-  //FUNCTION TO LOGOUT
+  //FUNCTION TO LOG OUT
   const handleLogoutFunction = function (): void {
     handleLogout();
     navigate("/login");
@@ -43,21 +43,21 @@ const HeaderComponent = ({ handleLogout }: HeaderComponentProps) => {
             )}
             {!isLogin && (
               <ButtonComponent
-                buttonContent="Login"
+                buttonContent="Log in"
                 buttonOnClickFunction={handleNavigateLoginPage}
                 buttonClassName="button-component button-component--header button-component--header-margin-left"
               />
             )}
             {!isLogin && (
               <ButtonComponent
-                buttonContent="Signup"
+                buttonContent="Sign up"
                 buttonOnClickFunction={handleNavigateSignupPage}
                 buttonClassName="button-component button-component--header"
               />
             )}
             {isLogin && (
               <ButtonComponent
-                buttonContent="Logout"
+                buttonContent="Log out"
                 buttonOnClickFunction={handleLogoutFunction}
                 buttonClassName="button-component button-component--header button-component--header-margin-left"
               />
