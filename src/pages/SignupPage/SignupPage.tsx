@@ -42,7 +42,7 @@ const SignupPage = () => {
     setPasswordError("");
     setPassword(e.target.value);
   };
-  //FUNCTION TO SIGNUP
+  //FUNCTION TO SIGN UP
   const navigate = useNavigate();
   const handleSignup = function (e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -54,7 +54,7 @@ const SignupPage = () => {
       axios
         .post(`${url}/signup`, objectData)
         .then((res) => {
-          alert("New account is created. Let's login!");
+          alert("New account is created. Let's log in!");
           setTimeout(() => {
             navigate("/login");
           }, 700);
@@ -85,7 +85,7 @@ const SignupPage = () => {
   return (
     <div className="signup-component">
       <LoadingComponent loadingComponentDisappear={loadingDisplayNone} />
-      <h1>Signup New Account</h1>
+      <h1>Sign up New Account</h1>
       <form className="signup-component__form" onSubmit={handleSignup}>
         <div className="signup-component__wrapper">
           <label className="signup-component__label" htmlFor="username">
@@ -113,7 +113,7 @@ const SignupPage = () => {
           />
         </div>
         <ButtonComponent
-          buttonContent="Signup"
+          buttonContent="Sign up"
           buttonClassName="button-component"
         />
         <div className=" signup-component__links">
@@ -121,7 +121,7 @@ const SignupPage = () => {
             Home
           </Link>
           <Link className="signup-component__link" to={"/login"}>
-            Login
+            Log in
           </Link>
         </div>
       </form>

@@ -42,7 +42,7 @@ function App() {
       });
   };
 
-  //FUNCTION TO LOGOUT
+  //FUNCTION TO LOG OUT
   const handleLogout = function (): void {
     if (isLogin) {
       axios
