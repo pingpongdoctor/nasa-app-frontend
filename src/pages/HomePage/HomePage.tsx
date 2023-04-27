@@ -1,9 +1,8 @@
 import "./HomePage.scss";
 import axios from "axios";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useAppSelector } from "../../customHooks/customHooks";
 import LoadingComponent from "../../components/LoadingComponent/LoadingComponent";
-import { useNavigate } from "react-router-dom";
 const NASA_API_URL = import.meta.env.VITE_APP_NASA_URL;
 const NASA_API_KEY = import.meta.env.VITE_APP_NASA_API_KEY;
 
