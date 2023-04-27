@@ -32,9 +32,6 @@ const HomePage = () => {
   //STATE FOR MAKING LOADING COMPONENT DISAPPEAR
   const [loadingDisappear, setLoadingDisappear] = useState<string>("");
 
-  //STATE FOR CHECKING IF IMAGE IS FULLY LOADED IN THE IMAGE TAG
-  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
-
   //FUNCTION TO FETCH IMAGE FROM NASA API EVERY 24H
   const handleFetchData = function () {
     axios
@@ -59,7 +56,7 @@ const HomePage = () => {
         setLoadingDisappear("loading-component--display-none");
       }, 700);
     }
-  }, [isAuthenticating, isLogin, userProfile, imgData, isImageLoaded]);
+  }, [isAuthenticating, isLogin, userProfile, imgData]);
 
   if (isAuthenticating === true) {
     return <LoadingComponent loadingContent="Authenticating" />;
