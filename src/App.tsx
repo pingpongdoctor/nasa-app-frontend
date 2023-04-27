@@ -26,12 +26,17 @@ function App() {
         withCredentials: true,
       })
       .then((res) => {
-        //NEW USER PROFILE RETURNED
-        dispatch(updateUserProfile(res.data));
-        dispatch(updateLoginState(true));
-        setTimeout(() => {
-          dispatch(updateAuthenticatingState(false));
-        }, 700);
+        if (res.data === "New access token is created") {
+          //NEW ACCESS TOKEN IS CREATED
+          getUserProfile();
+        } else {
+          //GET THE USER PROFILE
+          dispatch(updateUserProfile(res.data));
+          dispatch(updateLoginState(true));
+          setTimeout(() => {
+            dispatch(updateAuthenticatingState(false));
+          }, 700);
+        }
       })
       .catch((e) => {
         console.log(e);
