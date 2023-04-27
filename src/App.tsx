@@ -18,6 +18,7 @@ function App() {
 
   //GET THE ACCESS TOKEN STATE
   const isLogin = useAppSelector((state) => state.login.value);
+  const userProfile = useAppSelector((state) => state.user.value);
   //FUNCTION TO GET USER PROFILE WITH ACCESSTOKEN
   const getUserProfile = function (): void {
     axios
@@ -61,6 +62,11 @@ function App() {
   useEffect(() => {
     getUserProfile();
   }, []);
+
+  useEffect(() => {
+    console.log(isLogin);
+    console.log(userProfile);
+  }, [isLogin, userProfile]);
 
   return (
     <BrowserRouter>
